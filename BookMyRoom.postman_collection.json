@@ -1,0 +1,37 @@
+{
+  "info": {
+    "name": "BookMyRoom API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "roomId", "value": "1" },
+    { "key": "guestId", "value": "1" },
+    { "key": "bookingId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Rooms",
+      "item": [
+        { "name": "List rooms", "request": { "method": "GET", "url": "{{baseUrl}}/api/rooms" } },
+        { "name": "Create room", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"roomNumber\": \"101\",\n  \"roomType\": \"Standard\",\n  \"pricePerNight\": 99.00,\n  \"capacity\": 2,\n  \"available\": true\n}" }, "url": "{{baseUrl}}/api/rooms" } }
+      ]
+    },
+    {
+      "name": "Guests",
+      "item": [
+        { "name": "List guests", "request": { "method": "GET", "url": "{{baseUrl}}/api/guests" } },
+        { "name": "Create guest", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"name\": \"Alex Morgan\",\n  \"email\": \"alex@example.com\",\n  \"phone\": \"555-0100\"\n}" }, "url": "{{baseUrl}}/api/guests" } }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        { "name": "List bookings", "request": { "method": "GET", "url": "{{baseUrl}}/api/bookings" } },
+        { "name": "Create booking", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"roomId\": 1,\n  \"guestId\": 1,\n  \"checkInDate\": \"2027-01-10\",\n  \"checkOutDate\": \"2027-01-12\"\n}" }, "url": "{{baseUrl}}/api/bookings" } },
+        { "name": "Cancel booking", "request": { "method": "PUT", "url": "{{baseUrl}}/api/bookings/{{bookingId}}/cancel" } },
+        { "name": "List guest bookings", "request": { "method": "GET", "url": "{{baseUrl}}/api/bookings/guest/{{guestId}}" } }
+      ]
+    }
+  ]
+}
