@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookMyRoom — Availability</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Availability Search</h2>
+          <p>Find rooms available for specific dates.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="form-group">
+          <label for="availCheckIn">Check-in Date</label>
+          <input type="date" id="availCheckIn" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="availCheckOut">Check-out Date</label>
+          <input type="date" id="availCheckOut" class="form-control" />
+        </div>
+        <div class="form-group" style="flex:0 0 auto">
+          <button class="btn btn-primary" id="searchBtn" onclick="searchAvailability()">🔍 Search Rooms</button>
+        </div>
+      </div>
+
+      <div id="availabilityResults">
+        <div class="state-box">
+          <div class="state-icon">🔍</div>
+          <div class="state-title">Search for available rooms</div>
+          <div class="state-msg">Select check-in and check-out dates, then click Search.</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/availability.js"></script>
+  </body>
+</html>

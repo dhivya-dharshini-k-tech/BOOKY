@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon-cbDrXHSr.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookMyRoom — Rooms</title>
+    <link rel="stylesheet" crossorigin href="/assets/style-DhF6L55S.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Rooms</h2>
+          <p>Manage all guest house rooms, capacity and pricing.</p>
+        </div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" onclick="openRoomModal()">＋ Add Room</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>All Rooms</h3>
+        </div>
+        <div id="roomsContainer">
+          <div class="inline-loader"><div class="spinner spinner-dark"></div> Loading rooms...</div>
+        </div>
+      </div>
+
+      <!-- Add/Edit Room Modal -->
+      <div class="modal-overlay" id="roomModal">
+        <div class="modal">
+          <div class="modal-header">
+            <h3 id="roomModalTitle">Add Room</h3>
+            <button class="modal-close" onclick="closeModal('roomModal')">✕</button>
+          </div>
+          <form id="roomForm" onsubmit="submitRoom(event)">
+            <div class="modal-body">
+              <input type="hidden" id="roomId" />
+              <div class="form-group">
+                <label for="roomNumber">Room Number</label>
+                <input type="text" id="roomNumber" class="form-control" placeholder="e.g. 101" required />
+              </div>
+              <div class="form-group">
+                <label for="roomType">Room Type</label>
+                <select id="roomType" class="form-control" required>
+                  <option value="">Select type...</option>
+                  <option value="Single">Single</option>
+                  <option value="Double">Double</option>
+                  <option value="Deluxe">Deluxe</option>
+                  <option value="Suite">Suite</option>
+                  <option value="Family">Family</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="capacity">Capacity</label>
+                  <input type="number" id="capacity" class="form-control" placeholder="e.g. 2" min="1" required />
+                </div>
+                <div class="form-group">
+                  <label for="pricePerNight">Price Per Night (₹)</label>
+                  <input type="number" id="pricePerNight" class="form-control" placeholder="e.g. 1200" min="0" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;cursor:pointer">
+                  <input type="checkbox" id="roomAvailable" checked style="width:16px;height:16px;accent-color:var(--blue-500)" />
+                  Available for booking
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="closeModal('roomModal')">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="roomSaveBtn">Save Room</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/rooms.js"></script>
+  </body>
+</html>

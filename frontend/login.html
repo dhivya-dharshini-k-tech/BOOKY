@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookMyRoom — Sign In</title>
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <div class="login-page">
+      <!-- LEFT: branded visual panel -->
+      <div class="login-visual">
+        <div class="login-visual-inner">
+          <div class="login-brand">
+            <div class="logo-mark">🏨</div>
+            <div>
+              <div class="brand-name">BookMyRoom</div>
+              <div class="brand-sub">Guest House Management</div>
+            </div>
+          </div>
+          <div class="login-hero">
+            <h1>Manage rooms, guests &amp; bookings with ease.</h1>
+            <p>A professional dashboard for your guest house — track availability, reservations, and occupancy all in one place.</p>
+          </div>
+          <ul class="login-features">
+            <li><span class="feat-icon">🚪</span> Real-time room availability</li>
+            <li><span class="feat-icon">📅</span> Booking management</li>
+            <li><span class="feat-icon">📊</span> Occupancy reports</li>
+            <li><span class="feat-icon">👤</span> Guest directory</li>
+          </ul>
+        </div>
+        <div class="login-footer-note">Frontend prototype — not secure authentication. Use Spring Security for production.</div>
+      </div>
+
+      <!-- RIGHT: auth form -->
+      <div class="login-form-side">
+        <div class="login-form-card">
+          <div class="login-mobile-brand">
+            <div class="logo-mark">🏨</div>
+            <div class="brand-name">BookMyRoom</div>
+          </div>
+
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tabSignin" onclick="switchTab('signin')">Sign In</button>
+            <button class="auth-tab" id="tabSignup" onclick="switchTab('signup')">Create Account</button>
+          </div>
+
+          <!-- ===== SIGN IN ===== -->
+          <div class="auth-section active" id="signinSection">
+            <div class="form-heading">
+              <h2>Welcome back</h2>
+              <p>Sign in to your BookMyRoom dashboard.</p>
+            </div>
+
+            <div id="signinError"></div>
+
+            <form id="signinForm" onsubmit="handleSignin(event)">
+              <div class="form-group">
+                <label for="signinEmail">Email</label>
+                <input type="email" id="signinEmail" class="form-control" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+              <div class="form-group">
+                <label for="signinPassword">Password</label>
+                <div class="input-group">
+                  <input type="password" id="signinPassword" class="form-control" placeholder="Enter password" autocomplete="current-password" required />
+                  <button type="button" class="input-suffix" onclick="togglePassword('signinPassword', this)" aria-label="Show password">👁</button>
+                </div>
+              </div>
+              <div class="form-row">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="rememberMe" /> Remember me
+                </label>
+                <a href="javascript:void(0)" class="forgot-link" onclick="showForgot()">Forgot Password?</a>
+              </div>
+              <button type="submit" class="btn-login" id="signinBtn">Sign In</button>
+            </form>
+
+            <div class="switch-auth">Don't have an account? <button onclick="switchTab('signup')">Create Account</button></div>
+            <div class="demo-creds">
+              <strong>Demo credentials</strong><br />
+              <code>admin@bookmyroom.com</code> &nbsp;·&nbsp; <code>admin123</code>
+            </div>
+          </div>
+
+          <!-- ===== SIGN UP ===== -->
+          <div class="auth-section" id="signupSection">
+            <div class="form-heading">
+              <h2>Create account</h2>
+              <p>Register a new BookMyRoom account (prototype).</p>
+            </div>
+
+            <div id="signupError"></div>
+            <div id="signupSuccess"></div>
+
+            <form id="signupForm" onsubmit="handleSignup(event)">
+              <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" class="form-control" placeholder="Jane Doe" autocomplete="name" required />
+              </div>
+              <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" class="form-control" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+              <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <div class="input-group">
+                  <input type="password" id="signupPassword" class="form-control" placeholder="Min 6 characters" autocomplete="new-password" required />
+                  <button type="button" class="input-suffix" onclick="togglePassword('signupPassword', this)" aria-label="Show password">👁</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="signupConfirm">Confirm Password</label>
+                <div class="input-group">
+                  <input type="password" id="signupConfirm" class="form-control" placeholder="Re-enter password" autocomplete="new-password" required />
+                  <button type="button" class="input-suffix" onclick="togglePassword('signupConfirm', this)" aria-label="Show password">👁</button>
+                </div>
+              </div>
+              <button type="submit" class="btn-login" id="signupBtn">Create Account</button>
+            </form>
+
+            <div class="switch-auth">Already have an account? <button onclick="switchTab('signin')">Sign In</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      // Redirect to dashboard if already logged in
+      redirectIfLoggedIn()
+
+      // ---- Tab switching ----
+      function switchTab(tab) {
+        const signin = document.getElementById('signinSection')
+        const signup = document.getElementById('signupSection')
+        const t1 = document.getElementById('tabSignin')
+        const t2 = document.getElementById('tabSignup')
+        if (tab === 'signin') {
+          signin.classList.add('active'); signup.classList.remove('active')
+          t1.classList.add('active'); t2.classList.remove('active')
+        } else {
+          signup.classList.add('active'); signin.classList.remove('active')
+          t2.classList.add('active'); t1.classList.remove('active')
+        }
+        document.getElementById('signinError').innerHTML = ''
+        document.getElementById('signupError').innerHTML = ''
+        document.getElementById('signupSuccess').innerHTML = ''
+      }
+      window.switchTab = switchTab
+
+      // ---- Show / hide password ----
+      function togglePassword(id, btn) {
+        const input = document.getElementById(id)
+        if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈' }
+        else { input.type = 'password'; btn.textContent = '👁' }
+      }
+      window.togglePassword = togglePassword
+
+      function showForgot() {
+        const el = document.getElementById('signinError')
+        el.innerHTML = '<div class="form-success">Password recovery is not available in this prototype. Use the demo credentials shown below.</div>'
+      }
+      window.showForgot = showForgot
+
+      function setSigninError(msg) {
+        document.getElementById('signinError').innerHTML = `<div class="form-error">⚠ ${msg}</div>`
+      }
+
+      // ---- Sign In handler ----
+      function handleSignin(e) {
+        e.preventDefault()
+        const email = document.getElementById('signinEmail').value
+        const password = document.getElementById('signinPassword').value
+        const btn = document.getElementById('signinBtn')
+        const errEl = document.getElementById('signinError')
+        errEl.innerHTML = ''
+
+        // Validate
+        if (!email || !password) {
+          setSigninError('Please enter both email and password.')
+          return
+        }
+
+        // Loading state
+        btn.disabled = true
+        btn.innerHTML = '<span class="spinner"></span> Signing in...'
+
+        // Simulate a brief delay for the UX (prototype)
+        setTimeout(() => {
+          const result = validateLogin(email, password)
+          if (result.ok) {
+            loginUser(result.name)
+            window.location.href = 'index.html'
+          } else {
+            btn.disabled = false
+            btn.innerHTML = 'Sign In'
+            setSigninError('Invalid email or password')
+          }
+        }, 650)
+      }
+      window.handleSignin = handleSignin
+
+      // ---- Sign Up handler ----
+      function setSignupError(msg) {
+        document.getElementById('signupError').innerHTML = `<div class="form-error">⚠ ${msg}</div>`
+      }
+      function setSignupSuccess(msg) {
+        document.getElementById('signupSuccess').innerHTML = `<div class="form-success">✓ ${msg}</div>`
+      }
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+      }
+
+      function handleSignup(e) {
+        e.preventDefault()
+        const name = document.getElementById('signupName').value.trim()
+        const email = document.getElementById('signupEmail').value.trim()
+        const password = document.getElementById('signupPassword').value
+        const confirm = document.getElementById('signupConfirm').value
+        const btn = document.getElementById('signupBtn')
+
+        document.getElementById('signupError').innerHTML = ''
+        document.getElementById('signupSuccess').innerHTML = ''
+
+        if (!name || !email || !password || !confirm) {
+          setSignupError('All fields are required.')
+          return
+        }
+        if (!isValidEmail(email)) {
+          setSignupError('Please enter a valid email address.')
+          return
+        }
+        if (password.length < 6) {
+          setSignupError('Password must be at least 6 characters long.')
+          return
+        }
+        if (password !== confirm) {
+          setSignupError('Password and Confirm Password do not match.')
+          return
+        }
+        if (emailExists(email)) {
+          setSignupError('An account with this email already exists.')
+          return
+        }
+
+        btn.disabled = true
+        btn.innerHTML = '<span class="spinner"></span> Creating account...'
+
+        setTimeout(() => {
+          createSignupAccount(name, email, password)
+          loginUser(name)
+          setSignupSuccess('Account created! Redirecting to dashboard...')
+          setTimeout(() => { window.location.href = 'index.html' }, 700)
+        }, 600)
+      }
+      window.handleSignup = handleSignup
+    </script>
+  </body>
+</html>

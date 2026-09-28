@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon-cbDrXHSr.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookMyRoom — New Booking</title>
+    <link rel="stylesheet" crossorigin href="/assets/style-DhF6L55S.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>New Booking</h2>
+          <p>Select a guest and an available room to create a reservation.</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="bookings.html" class="btn btn-secondary">← Back to Bookings</a>
+        </div>
+      </div>
+
+      <div class="panel" style="max-width:640px">
+        <div class="panel-header"><h3>Booking Details</h3></div>
+        <div class="panel-body">
+          <div id="bookingError"></div>
+          <form id="bookingForm" onsubmit="submitBooking(event)">
+            <div class="form-group">
+              <label for="guestSelect">Guest</label>
+              <select id="guestSelect" class="form-control" required>
+                <option value="">Loading guests...</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="checkInDate">Check-in Date</label>
+                <input type="date" id="checkInDate" class="form-control" required onchange="onDateChange()" />
+              </div>
+              <div class="form-group">
+                <label for="checkOutDate">Check-out Date</label>
+                <input type="date" id="checkOutDate" class="form-control" required onchange="onDateChange()" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="roomSelect">Room</label>
+              <select id="roomSelect" class="form-control" required disabled>
+                <option value="">Select dates first to load available rooms</option>
+              </select>
+              <div class="hint" id="roomHint">Choose check-in and check-out dates to see available rooms.</div>
+            </div>
+            <div id="nightsInfo" style="margin-bottom:18px;font-size:14px;color:var(--gray-600)"></div>
+            <div style="display:flex;gap:10px">
+              <button type="submit" class="btn btn-primary" id="bookingSubmitBtn">Create Booking</button>
+              <button type="reset" class="btn btn-secondary" onclick="resetBookingForm()">Clear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/booking.js"></script>
+  </body>
+</html>

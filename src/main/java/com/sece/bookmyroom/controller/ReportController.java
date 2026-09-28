@@ -1,5 +1,7 @@
 package com.sece.bookmyroom.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,14 +20,13 @@ public class ReportController {
     }
 
     @GetMapping("/occupancy")
-    public String getOccupancyReport(
+    public Map<String, Long> getOccupancyReport(
             @RequestParam int year,
             @RequestParam int month) {
 
         long bookingCount =
                 reportService.getMonthlyBookingCount(year, month);
 
-        return "Occupancy Report for " + month + "/" + year
-                + " - Total Confirmed Bookings: " + bookingCount;
+        return Map.of("totalBookings", bookingCount);
     }
 }

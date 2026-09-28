@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookMyRoom — Bookings</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Bookings</h2>
+          <p>View and manage all reservations.</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="booking.html" class="btn btn-primary">＋ New Booking</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><h3>All Bookings</h3></div>
+        <div id="bookingsContainer">
+          <div class="inline-loader"><div class="spinner spinner-dark"></div> Loading bookings...</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/bookings.js"></script>
+  </body>
+</html>
